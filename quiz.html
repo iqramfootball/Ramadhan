@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuiz Ramadan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            color: #333;
+            background-image: url('images/masjid.png');
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+        .quiz-container {
+            max-width: 600px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            background-color: #2E8B57;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .options button:hover {
+            background-color: #1e6b42;
+        }
+        .result, .score {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .restart {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #FF5733;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .restart:hover {
+            background-color: #C70039;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Kuiz Ramadan</h2>
+        <div class="question" id="question">Soalan akan muncul di sini...</div>
+        <div class="options" id="options"></div>
+        <div class="result" id="result"></div>
+        <div class="score" id="score">Markah: 0</div>
+        <button class="restart" onclick="restartQuiz()">Ulang Semula</button>
+    </div>
+
+    <script>
+        const quizData = [
+            { question: "Berapa rakaat solat tarawih yang biasa dilakukan?", options: ["8 rakaat", "10 rakaat", "20 rakaat", "12 rakaat"], answer: "8 rakaat" },
+            { question: "Apakah maksud Ramadan dalam bahasa Arab?", options: ["Bulan Keampunan", "Bulan Berkat", "Bulan Panas", "Bulan Kebaikan"], answer: "Bulan Panas" },
+            { question: "Apakah amalan yang sangat digalakkan pada 10 malam terakhir Ramadan?", options: ["Membaca Al-Quran", "Qiamullail", "Bersedekah", "Semua di atas"], answer: "Semua di atas" },
+            { question: "Bilakah puasa Ramadan diwajibkan ke atas umat Islam?", options: ["Tahun ke-1 Hijrah", "Tahun ke-2 Hijrah", "Tahun ke-5 Hijrah", "Tahun ke-10 Hijrah"], answer: "Tahun ke-2 Hijrah" },
+            { question: "Surah manakah yang berkaitan dengan kewajipan berpuasa?", options: ["Surah Al-Fatihah", "Surah Al-Baqarah", "Surah Al-Ikhlas", "Surah An-Nas"], answer: "Surah Al-Baqarah" },
+            { question: "Malam Lailatul Qadar lebih baik daripada...?", options: ["100 hari", "1000 bulan", "100 tahun", "10,000 bulan"], answer: "1000 bulan" },
+            { question: "Makanan sunnah ketika berbuka puasa ialah...?", options: ["Roti", "Buah kurma", "Madu", "Buah epal"], answer: "Buah kurma" },
+            { question: "Apakah ganjaran bagi orang yang berpuasa dengan ikhlas?", options: ["Mendapat pahala yang banyak", "Dimasukkan ke dalam syurga", "Dosa-dosa diampuni", "Semua di atas"], answer: "Semua di atas" },
+            { question: "Apakah nama solat sunat yang dilakukan sebelum sahur?", options: ["Solat Tahajjud", "Solat Dhuha", "Solat Tarawih", "Solat Hajat"], answer: "Solat Tahajjud" },
+            { question: "Apakah perkara yang membatalkan puasa?", options: ["Makan dan minum dengan sengaja", "Tidur terlalu lama", "Berjalan terlalu jauh", "Memakai wangian"], answer: "Makan dan minum dengan sengaja" }
+        ];
+        
+        let currentQuestionIndex = 0;
+        let score = 0;
+        function loadQuestion() {
+            const questionData = quizData[currentQuestionIndex];
+            document.getElementById("question").innerText = questionData.question;
+            const optionsContainer = document.getElementById("options");
+            optionsContainer.innerHTML = "";
+            questionData.options.forEach(option => {
+                const button = document.createElement("button");
+                button.innerText = option;
+                button.onclick = () => checkAnswer(option);
+                optionsContainer.appendChild(button);
+            });
+        }
+        
+        function checkAnswer(selectedOption) {
+            const correctAnswer = quizData[currentQuestionIndex].answer;
+            const resultContainer = document.getElementById("result");
+            if (selectedOption === correctAnswer) {
+                resultContainer.innerText = "Betul!";
+                resultContainer.style.color = "green";
+                score += 10;
+            } else {
+                resultContainer.innerText = `Salah! Jawapan yang betul ialah: ${correctAnswer}`;
+                resultContainer.style.color = "red";
+            }
+            document.getElementById("score").innerText = `Markah: ${score}`;
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < quizData.length) {
+                    loadQuestion();
+                    resultContainer.innerText = "";
+                } else {
+                    resultContainer.innerText = "Kuiz tamat! Syabas!";
+                }
+            }, 2000);
+        }
+        
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById("score").innerText = "Markah: 0";
+            document.getElementById("result").innerText = "";
+            loadQuestion();
+        }
+        
+        loadQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadan Mubarak</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            color: #333;
+            background-image: url('images/masjid.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2E8B57;
+        }
+        .doa {
+            background: #FFA725;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        .tagline {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #555;
+        }
+        .quiz-button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 18px;
+            color: white;
+            background-color: #2E8B57;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        .quiz-button:hover {
+            background-color: #1e6b42;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Selamat Menyambut Bulan Ramadan Al-Mubarak</h1>
+        <p class="tagline">Bersihkan hati, kuatkan iman, tingkatkan amal.</p>
+        
+        <div class="countdown" id="countdown"></div>
+        
+        <div class="doa">
+            <p>"Allahumma innaka 'afuwwun tuhibbul 'afwa fa'fu 'anni."</p>
+            <small>Ya Allah, sesungguhnya Engkau Maha Pengampun, dan Engkau menyukai keampunan, maka ampunilah aku.</small>
+        </div>
+
+        <a href="quiz.html" class="quiz-button">Mulakan Kuiz Ramadan</a>
+    </div>
+    
+    <script>
+        function updateCountdown() {
+            const rayaDate = new Date("March 31, 2025 00:00:00").getTime();
+            const now = new Date().getTime();
+            const difference = rayaDate - now;
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            
+            document.getElementById("countdown").innerHTML = `Hari Raya Aidilfitri dalam ${days} hari, ${hours} jam, ${minutes} minit, ${seconds} saat lagi!`;
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
